@@ -45,6 +45,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
+      } else if (text == 'x²') {
+        try {
+          final expression = Expression.parse(_expression);
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          _result = (result * result).toString();
+        } catch (e) {
+          _result = 'Error';
+        }
       } else {
         _expression += text;
       }
@@ -57,7 +66,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         margin: EdgeInsets.all(4),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(20), backgroundColor: color,
+            padding: EdgeInsets.all(20),
+            backgroundColor: color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -133,6 +143,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   _buildButton('⌫', color: Colors.blue),
                   _buildButton('=', color: Colors.green),
                   _buildButton('+', color: Colors.orange),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  _buildButton('x²', color: Colors.purple),
                 ],
               ),
             ],
